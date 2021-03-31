@@ -3,6 +3,7 @@ using EmployeeBusinessLogic.Interface;
 using EmployeeRepository.Interface;
 using Entities.API;
 using Entities.DTO;
+using Entities.Mapper;
 
 namespace EmployeeBusinessLogic.Implementation
 {
@@ -18,19 +19,19 @@ namespace EmployeeBusinessLogic.Implementation
         public EmployeeResponse GetEmployeeByEmail(string email)
         {
             EmployeeDTO employee = _employeeRepository.GetEmployeeByEmail(email);
-            return new EmployeeResponse(employee);
+            return employee.MapEmployeeDtoToResponse();
         }
 
         public EmployeeResponse GetEmployeeByPhone(string phone)
         {
             EmployeeDTO employee = _employeeRepository.GetEmployeeByPhone(phone);
-            return new EmployeeResponse(employee);
+            return employee.MapEmployeeDtoToResponse();
         }
 
         public EmployeeResponse GetEmployeeByMemberId(string memberId)
         {
             EmployeeDTO employee = _employeeRepository.GetEmployeeByMemberId(memberId);
-            return new EmployeeResponse(employee);
+            return employee.MapEmployeeDtoToResponse();
         }
     }
 }

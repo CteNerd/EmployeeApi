@@ -1,10 +1,13 @@
 ﻿using System;
 using EmployeeBusinessLogic.Interface;
 using Entities.API;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeApi.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;

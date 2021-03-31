@@ -3,11 +3,14 @@ using System.Reflection;
 using Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace EmployeeApi
 {
@@ -53,6 +56,17 @@ namespace EmployeeApi
             EmployeeBusinessLogic.Registrar.Register(services);
 
             services.Configure<AppSettings>(_configuration);
+
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // services.AddAuthentication()
+            //    .AddMicrosoftAccount(microsoftOptions =>
+            //    {
+            //        microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ClientId"];
+            //        microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
+            //    });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -75,6 +89,11 @@ namespace EmployeeApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            IConfigurationBuilder builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath);
+
+            _configuration = builder.Build();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -82,11 +101,11 @@ namespace EmployeeApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EmployeeApi v1"));
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

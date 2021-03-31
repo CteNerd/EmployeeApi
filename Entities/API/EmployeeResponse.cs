@@ -5,13 +5,6 @@ namespace Entities.API
 {
     public class EmployeeResponse
     {
-        private EmployeeDTO employee;
-
-        public EmployeeResponse(EmployeeDTO employee)
-        {
-            this.employee = employee;
-        }
-
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MemberId { get; set; }
