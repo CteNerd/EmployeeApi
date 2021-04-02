@@ -66,12 +66,12 @@ namespace EmployeeApi
                  o.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                  o.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
              })
-                .AddMicrosoftAccount(JwtBearerDefaults.AuthenticationScheme, microsoftOptions =>
-                {
-                    microsoftOptions.ClientId = "039d4211-9b6d-4cc3-9ccb-c83e10d43873";
-                    microsoftOptions.ClientSecret = "~~Scrs1rUDQFvn872iS.A-jbMktla693_.";
-                    microsoftOptions.SignInScheme = "Microsoft";
-                });
+            .AddMicrosoftAccount(JwtBearerDefaults.AuthenticationScheme, microsoftOptions =>
+            {
+                microsoftOptions.ClientId = _appSettings.MICROSOFT_CLIENTID;
+                microsoftOptions.ClientSecret = _appSettings.MICROSOFT_CLIENTSECRET;
+                microsoftOptions.SignInScheme = "Microsoft";
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
