@@ -18,6 +18,7 @@ namespace EmployeeApi.Controllers
         }
 
         [HttpGet("memberId")]
+        [Authorize]
         public IActionResult GetByMemberId(string memberId)
         {
             try

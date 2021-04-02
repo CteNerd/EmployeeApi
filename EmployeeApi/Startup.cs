@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace EmployeeApi
 {
@@ -60,12 +61,17 @@ namespace EmployeeApi
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            // services.AddAuthentication()
-            //    .AddMicrosoftAccount(microsoftOptions =>
-            //    {
-            //        microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ClientId"];
-            //        microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
-            //    });
+             services.AddAuthentication(o => {
+                 o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                 o.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                 o.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+             })
+                .AddMicrosoftAccount(JwtBearerDefaults.AuthenticationScheme, microsoftOptions =>
+                {
+                    microsoftOptions.ClientId = "039d4211-9b6d-4cc3-9ccb-c83e10d43873";
+                    microsoftOptions.ClientSecret = "~~Scrs1rUDQFvn872iS.A-jbMktla693_.";
+                    microsoftOptions.SignInScheme = "Microsoft";
+                });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -102,7 +108,7 @@ namespace EmployeeApi
 
             app.UseRouting();
 
-            // app.UseAuthorization();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
